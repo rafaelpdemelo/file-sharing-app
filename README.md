@@ -1,70 +1,132 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# File Sharing App
 
-## Available Scripts
+This project is a file sharing application that allows uploading and downloading files. The backend application is built with Node.js and Express, while the frontend is created with React.
 
-In the project directory, you can run:
+Project created for the Cloud App Security Engineer vacancy challenge at Liferay
+## Features
 
-### `npm start`
+- File Upload: The application allows users to upload files to the server. Basic authentication is required for this operation.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- File Download: Users can also download files from the server, using the file name and basic authentication.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Basic Authentication: Access to both file upload and download operations is protected by basic authentication.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Backend: Node.js, Express, Multer for handling file uploads.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Frontend: React, Axios for making HTTP requests.
 
-### `npm run eject`
+- Authentication: The basic-auth library of Node.js is used for implementing basic authentication.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Containerization: Docker.
+## Setup
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+We have 2 ways to run this project. Using locally, initializing from terminal or via docker.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### First one:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    
+## Running Locally
 
-## Learn More
+Clone the project
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+  git clone https://github.com/rafaelpdemelo/file-sharing-app.git
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Go to the project directory
 
-### Code Splitting
+```bash
+  cd file-sharing-app
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Install dependencies inside both backend/ and frontend/ directories
 
-### Analyzing the Bundle Size
+```bash
+  yarn install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Start the server inside both backend/ and frontend/ directories
 
-### Making a Progressive Web App
+```bash
+  npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+### Second one:
+## Running with Docker
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Clone the project
 
-### `npm run build` fails to minify
+```bash
+  git clone https://github.com/rafaelpdemelo/file-sharing-app.git
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Go to the project directory
+
+```bash
+  cd file-sharing-app
+```
+
+Change the username inside the whole ```rerun.sh``` script for your username (This is good if you want to publish this image later on Dockerhub)
+For exemple:
+
+```bash
+  docker buildx build -t [username]/node-app:latest -f node.Dockerfile .
+  docker buildx build -t rafaelpdemelo/node-app:latest -f node.Dockerfile .
+```
+
+Now, let's run the script ```rerun.sh``` to execute the creation of the docker image and also run the container with the application.
+
+```bash
+  sh rerun.sh
+```
+
+### Note
+
+You may need administrator permission for your operating system.
+
+if you use linux, you can use it to turn the file into an executable file. (in case the command above doesn't work '-')
+
+```bash
+  chmod a+x rerun.sh 
+```
+
+And after
+
+```bash
+  ./rerun.sh 
+```
+
+### Finally...
+
+Now if you access your ```localhost:80``` , you will see the React application. If you access ```localhost:3001```, you will see that the server has also gone up (Informed by the message ```Cannot get / ```).
+# More
+
+In case you are running the application locally, you can see the uploads performed inside the uploads folder that was generated inside ```backend/src/uploads```
+
+If you are running with Docker, you can also view the files that are being uploaded.
+
+Just Run and go to the same path ```backend/src/uploads```
+
+```bash
+ docker exec -it [container-id] /bin/bash
+```
+
+user -> user
+password -> password 
+
+### PS: Play with Curl. I created the interface to make it easier during development. 
+
+
+## Authors
+
+- [@rafaelpdemelo](https://www.github.com/rafaelpdemelo)
+

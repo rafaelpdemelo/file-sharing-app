@@ -29,7 +29,7 @@ function App() {
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        alert(`Failed to upload file: ${error.response.data.message}`);
+        alert(`${error.response.data.message}`);
       } else {
         alert(`Failed to upload file: ${error}`);
       }
