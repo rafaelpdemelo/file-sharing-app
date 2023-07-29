@@ -12,7 +12,7 @@ function App() {
     try {
       const formData = new FormData();
       formData.append('file', fileInputRef.current.files[0]);
-
+  
       const res = await axios.post(
         `http://localhost:3001/upload/${fileInputRef.current.files[0].name}`,
         formData,
@@ -24,11 +24,18 @@ function App() {
         }
       );
       
-      alert(`File uploaded successfully. Download URL: ${res.data.downloadUrl}`);
+      if (res.status === 200) {
+        alert(`File uploaded successfully. Download URL: ${res.data.downloadUrl}`);
+      }
     } catch (error) {
-      alert(`Failed to upload file: ${error}`);
+      if (error.response && error.response.status === 409) {
+        alert(`Failed to upload file: ${error.response.data.message}`);
+      } else {
+        alert(`Failed to upload file: ${error}`);
+      }
     }
   };
+  
 
   const handleDownload = async () => {
     try {

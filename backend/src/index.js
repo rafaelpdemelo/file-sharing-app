@@ -47,13 +47,17 @@ app.post('/upload/:name', authenticate, upload.single('file'), (req, res) => {
     return res.json({ error: 'No file received' });
   }
   
-  // if a file with the same name exists, log a warning
   const filePath = path.join(uploadsDir, req.params.name);
+  // Check if file exists before upload
   if (fs.existsSync(filePath)) {
     console.warn('File already exists and will be replaced');
+    return res.status(409).json({
+      success: false, 
+      message: 'File already exists and will be replaced',
+    });
   }
-
-  // move the file to the target directory
+  
+  // If file doesn't exist, proceed with upload
   fs.renameSync(req.file.path, filePath);
   return res.json({ 
     success: true, 
