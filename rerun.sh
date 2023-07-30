@@ -2,11 +2,11 @@
 
 # Navega para o diretório /backend e constrói a imagem Docker para o servidor Node.js
 cd backend/
-docker buildx build -t [username]/node-app:latest -f node.Dockerfile .
+docker build -t [username]/node-app:latest -f node.Dockerfile .
 
 # Navega para o diretório /frontend e constrói a imagem Docker para o aplicativo React
 cd ../frontend/
-docker buildx build -t [username]/react-app:latest -f react.Dockerfile .
+docker build -t [username]/react-app:latest -f react.Dockerfile .
 
 # Para todos os contêineres Docker em execução
 docker stop $(docker ps -a | grep '[username]/node-app:latest' | awk '{print $1}') && docker stop $(docker ps -a | grep '[username]/react-app:latest' | awk '{print $1}')

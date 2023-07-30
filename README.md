@@ -83,6 +83,12 @@ For exemple:
   docker buildx build -t rafaelpdemelo/node-app:latest -f node.Dockerfile .
 ```
 
+Now, make login in Docker via terminal
+
+```bash
+  docker login
+```
+
 Now, let's run the script ```rerun.sh``` to execute the creation of the docker image and also run the container with the application.
 
 ```bash
