@@ -120,9 +120,6 @@ Just Run and go to the same path ```backend/src/uploads```
  docker exec -it [container-id] /bin/bash
 ```
 
-user -> user
-password -> password 
-
 ### PS: Play with Curl. I created the interface to make it easier during development. 
 
 
