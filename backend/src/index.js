@@ -19,7 +19,7 @@ if (!fs.existsSync(uploadsDir)){
 
 // Cors to identify the origin of the uploaded files, in this case it is the React Application.
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost', 'http://localhost:80', 'http://127.0.0.1:30080']
+  origin: ['http://localhost:3000', 'http://localhost', 'http://localhost:80', 'http://127.0.0.1:30080'] // Test this endpoints for minikube... But my firewall is not allowing minikube to work 
 }));
 
 
@@ -47,6 +47,7 @@ app.post('/upload/:name', upload.single('file'), (req, res) => {
   
   // If file doesn't exist, proceed with upload
   fs.renameSync(req.file.path, filePath);
+  console.warn('File uploaded successfully');
   return res.json({ 
     success: true, 
     message: 'File uploaded successfully',
@@ -69,7 +70,7 @@ app.get('/download/:name', (req, res) => {
   } else {
     return res.status(403).json({
       success: false, 
-      message: 'Wrong password',
+      message: 'Forbidden Request',
     });
   }
 });

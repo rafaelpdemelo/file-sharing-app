@@ -11,6 +11,8 @@ docker buildx build -t [username]/react-app:latest -f react.Dockerfile .
 # Para todos os contêineres Docker em execução
 docker stop $(docker ps -a | grep '[username]/node-app:latest' | awk '{print $1}') && docker stop $(docker ps -a | grep '[username]/react-app:latest' | awk '{print $1}')
 
+sleep 1
+
 # Remove todos os contêineres Docker
 docker rm $(docker ps -a | grep '[username]/node-app:latest' | awk '{print $1}') && docker rm $(docker ps -a | grep '[username]/react-app:latest' | awk '{print $1}')
 

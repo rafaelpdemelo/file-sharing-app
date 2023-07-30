@@ -20,6 +20,9 @@ function App() {
       
       if (res.status === 200) {
         alert(`File uploaded successfully. Download URL: ${res.data.downloadUrl}`);
+        
+        passwordRef.current.value = "";
+        fileInputRef.current.value = null;
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -31,7 +34,6 @@ function App() {
       }
     }
   };
-  
 
   const handleDownload = async () => {
     try {
@@ -39,7 +41,6 @@ function App() {
       const res = await axios.get(
         `http://localhost:3001/download/${filename}`,
         {
-          responseType: 'blob',
           headers: {
             password: passwordRef.current.value
           },
@@ -65,7 +66,7 @@ function App() {
 
   return (
     <AppWrapper>
-      <StyledInput type="password" ref={passwordRef} placeholder="Enter password" />
+      <StyledInput type="password" ref={passwordRef} placeholder="Password to encrypt or decrypt" />
       <StyledInput type="file" ref={fileInputRef} accept=".gz" />
       <StyledButton onClick={handleUpload}>
         <Icon><BsCloudUpload /></Icon>
@@ -89,6 +90,7 @@ const AppWrapper = styled.div`
 `;
 
 const StyledInput = styled.input`
+  width: 178px;
   margin: 10px;
   padding: 10px;
   border: 2px solid #0080ff;
