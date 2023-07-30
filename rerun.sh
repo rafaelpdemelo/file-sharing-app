@@ -9,10 +9,10 @@ cd ../frontend/
 docker buildx build -t [username]/react-app:latest -f react.Dockerfile .
 
 # Para todos os contêineres Docker em execução
-docker stop $(docker ps -aq)
+docker stop $(docker ps -a | grep '[username]/node-app:latest' | awk '{print $1}') && docker stop $(docker ps -a | grep '[username]/react-app:latest' | awk '{print $1}')
 
 # Remove todos os contêineres Docker
-docker rm $(docker ps -aq)
+docker rm $(docker ps -a | grep '[username]/node-app:latest' | awk '{print $1}') && docker rm $(docker ps -a | grep '[username]/react-app:latest' | awk '{print $1}')
 
 # Inicia um contêiner Docker para o aplicativo React na porta 80
 docker run -p 80:80 -d [username]/react-app:latest
