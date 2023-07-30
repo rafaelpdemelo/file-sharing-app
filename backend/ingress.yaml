@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+spec:
+  rules:
+  - host: "filesharingapp.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/upload/"
+        backend:
+          service:
+            name: backend-service
+            port:
+              number: 3001
+      - pathType: Prefix
+        path: "/download/"
+        backend:
+          service:
+            name: backend-service
+            port:
+              number: 3001
