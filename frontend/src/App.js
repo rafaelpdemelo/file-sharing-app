@@ -3,7 +3,6 @@ import { BsCloudUpload, BsCloudDownload } from 'react-icons/bs';
 import styled from 'styled-components';
 import axios from 'axios';
 
-
 function App() {
   const fileInputRef = useRef(null);
   const passwordRef = useRef(null);
@@ -12,16 +11,11 @@ function App() {
     try {
       const formData = new FormData();
       formData.append('file', fileInputRef.current.files[0]);
+      formData.append('password', passwordRef.current.value);
   
       const res = await axios.post(
         `http://localhost:3001/upload/${fileInputRef.current.files[0].name}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Basic ${btoa(`uploader:${passwordRef.current.value}`)}`
-          },
-        }
+        formData
       );
       
       if (res.status === 200) {
@@ -30,7 +24,9 @@ function App() {
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(`${error.response.data.message}`);
-      } else {
+      } else if (error.response && error.response.status === 403) {
+        alert(`${error.response.data.message}`); 
+      }else {
         alert(`Failed to upload file: ${error}`);
       }
     }
@@ -45,7 +41,7 @@ function App() {
         {
           responseType: 'blob',
           headers: {
-            Authorization: `Basic ${btoa(`uploader:${passwordRef.current.value}`)}`
+            password: passwordRef.current.value
           },
         }
       );
@@ -57,9 +53,15 @@ function App() {
       document.body.appendChild(link);
       link.click();
     } catch (error) {
-      alert(`Failed to download file: ${error}`);
+      console.log(error.response)
+      if (error.response && error.response.status === 403) {
+        alert('Incorrect Password or File Name');
+      } else {
+        alert(`Failed to download file: ${error.message}`);
+      }
     }
-  };
+};
+
 
   return (
     <AppWrapper>
@@ -77,8 +79,7 @@ function App() {
   );
 }
 
-
-//Styles for the Application
+// Styles for the Application
 const AppWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -117,6 +118,5 @@ const StyledButton = styled.button`
 const Icon = styled.span`
   margin-right: 5px;
 `;
-
 
 export default App;
