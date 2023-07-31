@@ -4,7 +4,7 @@ metadata:
   name: example-ingress
 spec:
   rules:
-  - host: "filesharingapp.com"
+  - host: "SEUHOSTNAME.COM"
     http:
       paths:
       - pathType: Prefix

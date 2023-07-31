@@ -13,7 +13,7 @@ spec:
         component: backend
     spec:
       containers:
-      - name: backend
-        image: rafaelpdemelo/node-appv2:latest
+      - name: backendS
+        image: [username]/node-appv3:latest
         ports:
         - containerPort: 3001
