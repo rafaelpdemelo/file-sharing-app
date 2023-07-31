@@ -26,7 +26,9 @@ Project created for the Cloud App Security Engineer vacancy challenge at Liferay
 - Containerization: Docker.
 ## Setup
 
-We have 2 ways to run this project. Using locally, initializing from terminal or via docker.
+We have 3 ways to run this project. Using locally, initializing from terminal or via docker, and [minikube](https://github.com/rafaelpdemelo/file-sharing-app/blob/master/backend/README.md).
+
+The base project is configured to run locally and dockerized, for minikube, follow the documentation above
 
 ### First one:
 
